@@ -6,11 +6,10 @@ public class LinkedList<T> {
 
 
     private static class Item<T> {
+        T value;
+        Item<T> next;
 
-        public T value;
-        public Item<T> next;
-
-        public Item(T value, Item<T> next) {
+        Item(T value, Item<T> next) {
             this.value = value;
             this.next = next;
         }
