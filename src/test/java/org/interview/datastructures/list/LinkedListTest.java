@@ -66,6 +66,39 @@ public class LinkedListTest {
         assertThat(list.asCollection(), contains("A"));
     }
 
+    @Test
+    public void shouldSortEmptyList() {
+        list.sort();
+        assertTrue(list.asCollection().isEmpty());
+    }
+
+    @Test
+    public void shouldSortOneElementList() {
+        list.add("A");
+        list.sort();
+        assertThat(list.asCollection(), contains("A"));
+    }
+
+    @Test
+    public void shouldSortListWithNull() {
+        String[] expected = {null};
+        list.add(null);
+        list.sort();
+        assertThat(list.asCollection(), contains(expected));
+    }
+
+    @Test
+    public void shouldSortList() {
+        list.add("A");
+        list.add("AB");
+        list.add("CA");
+        list.add("AAA");
+        list.add("A");
+        list.add("a");
+        list.sort();
+        assertThat(list.asCollection(), contains("A", "A", "AAA", "AB", "CA", "a"));
+    }
+
     private void addABCDCValues() {
         list.add("A");
         list.add("B");
