@@ -12,12 +12,18 @@ public class Heap<T extends Comparable<T>> {
         heapCapacity = array.length;
     }
 
+    public int getCapacity() {
+        return heapCapacity;
+    }
+
     public T min() {
         if (heapCapacity <= 0) throw new IllegalArgumentException("Heap is empty");
         T min = heap[0];
-        swap(heap, 0, heapCapacity - 1);
         heapCapacity--;
-        heapifyMin(0);
+        swap(heap, 0, heapCapacity);
+        heap[heapCapacity] = null;
+        if (heapCapacity > 0)
+            heapifyMin(0);
         return min;
     }
 
@@ -29,6 +35,7 @@ public class Heap<T extends Comparable<T>> {
     }
 
     private void heapifyMin(int i) {
+        if (heap[i] == null) throw new IllegalArgumentException("Heap can't contain nulls");
         int current = i;
         int left = i * 2 + 1;
         int right = i * 2 + 2;

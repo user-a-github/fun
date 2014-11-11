@@ -12,10 +12,9 @@ public class HeapTest {
     private Heap<String> heap;
     private final String[] STRINGS_INPUT = {"B", "D", "A", "AB", "P", "W", "A"};
     private final String[] STRINGS_EXPECTED = {"A", "AB", "A", "D", "P", "W", "B"};
-    private final String[] STRINGS_INPUT_WITH_NULL = {"B", "D", "A", "AB", null, null, "A"};
-    private final String[] STRINGS_WITH_NULL_EXPECTED = {"A", "AB", "A", "D", null, null, "B"};
-    private final String[] AFTER_MIN_EXPECTED = {"A", "AB", "B", "D", "P", "W", "A"};
-    private final String[] AFTER_ALL_MIN_EXPECTED = {"W", "P", "D", "B", "AB", "A", "A"};
+    private final String[] STRINGS_INPUT_WITH_NULL = {null, "D", "A", "AB", null, "a", "A"};
+    private final String[] AFTER_MIN_EXPECTED = {"A", "AB", "B", "D", "P", "W", null};
+    private final String[] AFTER_ALL_MIN_EXPECTED = {null, null, null, null, null, null, null};
     private final String[] ONE_STRING_INPUT = {"B"};
     private final String[] ONE_STRINGS_EXPECTED = {"B"};
     private final String[] EMPTY = {};
@@ -56,11 +55,10 @@ public class HeapTest {
         heap.min();
     }
 
-    @Test
-    public void shouldBuildHeapIfArrayContainsNulls() {
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionIfArrayContainsNulls() {
         heap = new Heap<String>(STRINGS_INPUT_WITH_NULL);
         heap.heapify();
-        assertThat(asList(heap.heap), contains(STRINGS_WITH_NULL_EXPECTED));
     }
 
     @Test
