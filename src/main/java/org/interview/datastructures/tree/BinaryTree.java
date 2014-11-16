@@ -46,16 +46,58 @@ public class BinaryTree<T extends Comparable<T>> {
     public List<T> inOrderWithIteration() {
         List<T> nodeValues = new ArrayList<T>();
         if (root != null) {
-            Stack<Node<T>> stack = new Stack<Node<T>>();
             Node<T> it = root;
+            Stack<Node<T>> stack = new Stack<Node<T>>();
             while (!stack.isEmpty() || it != null) {
                 if (it != null) {
-                    stack.add(it);
+                    stack.push(it);
                     it = it.left;
                 } else {
                     it = stack.pop();
                     nodeValues.add(it.value);
                     it = it.right;
+                }
+            }
+        }
+        return nodeValues;
+    }
+
+    public List<T> postOrderWithIteration() {
+        List<T> nodeValues = new ArrayList<T>();
+        if (root != null) {
+            Node<T> it = root;
+            Node<T> lastVisited = null;
+            Node<T> peek = null;
+            Stack<Node<T>> stack = new Stack<Node<T>>();
+            while (!stack.isEmpty() || it != null) {
+                if (it != null) {
+                    stack.push(it);
+                    it = it.left;
+                } else {
+                    peek = stack.peek();
+                    if (peek.right != null && lastVisited != peek.right) it = peek.right;
+                    else {
+                        nodeValues.add(peek.value);
+                        lastVisited = stack.pop();
+                    }
+                }
+            }
+        }
+        return nodeValues;
+    }
+
+    public List<T> preOrderWithIteration() {
+        List<T> nodeValues = new ArrayList<T>();
+        if (root != null) {
+            Node<T> it = root;
+            Stack<Node<T>> stack = new Stack<Node<T>>();
+            while (!stack.isEmpty() || it != null) {
+                if (it != null) {
+                    nodeValues.add(it.value);
+                    if (it.right != null) stack.push(it.right);
+                    it = it.left;
+                } else {
+                    it = stack.pop();
                 }
             }
         }

@@ -63,39 +63,47 @@ public class BinaryTreeTest {
     @Test
     public void shouldTraversPreOrderForEmptyTree() {
         assertTrue(tree.preOrder().isEmpty());
+        assertTrue(tree.preOrderWithIteration().isEmpty());
     }
 
     @Test
     public void shouldTraversPreOrderForOneElementAndTwoElementsTree() {
         tree.add(10);
         assertThat(tree.preOrder(), contains(10));
+        assertThat(tree.preOrderWithIteration(), contains(10));
         tree.add(0);
         assertThat(tree.preOrder(), contains(10, 0));
+        assertThat(tree.preOrderWithIteration(), contains(10, 0));
     }
 
     @Test
     public void shouldTraversPreOrder() {
         addValueToTree(INPUT_VALUES);
         assertThat(tree.preOrder(), contains(PRE_ORDER_EXPECTED));
+        assertThat(tree.preOrderWithIteration(), contains(PRE_ORDER_EXPECTED));
     }
 
     @Test
     public void shouldTraversPostOrderForEmptyTree() {
         assertTrue(tree.postOrder().isEmpty());
+        assertTrue(tree.postOrderWithIteration().isEmpty());
     }
 
     @Test
     public void shouldTraversPostOrderForOneElementAndTwoElementsTree() {
         tree.add(10);
         assertThat(tree.postOrder(), contains(10));
+        assertThat(tree.postOrderWithIteration(), contains(10));
         tree.add(0);
         assertThat(tree.postOrder(), contains(0, 10));
+        assertThat(tree.postOrderWithIteration(), contains(0, 10));
     }
 
     @Test
     public void shouldTraversPostOrder() {
         addValueToTree(INPUT_VALUES);
         assertThat(tree.postOrder(), contains(POST_ORDER_EXPECTED));
+        assertThat(tree.postOrderWithIteration(), contains(POST_ORDER_EXPECTED));
     }
 
     @Test
