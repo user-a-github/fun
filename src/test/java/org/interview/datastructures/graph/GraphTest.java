@@ -3,10 +3,10 @@ package org.interview.datastructures.graph;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import static org.hamcrest.CoreMatchers.everyItem;
 import static org.hamcrest.Matchers.isIn;
@@ -44,12 +44,12 @@ public class GraphTest {
         graph.addEdge(VERTEX_ONE, VERTEX_SIX, 1);
         graph.addEdge(VERTEX_SEVEN, VERTEX_TWO, 0);
 
-        Map<Graph.Vertex, Set<Graph.Edge>> expectedGraph = new HashMap<>();
-        expectedGraph.put(VERTEX_ONE_EXPECTED, new HashSet<Graph.Edge>());
-        expectedGraph.put(VERTEX_TWO_EXPECTED, new HashSet<Graph.Edge>());
-        expectedGraph.put(VERTEX_THREE_EXPECTED, new HashSet<Graph.Edge>());
-        expectedGraph.put(VERTEX_SIX_EXPECTED, new HashSet<Graph.Edge>());
-        expectedGraph.put(VERTEX_SEVEN_EXPECTED, new HashSet<Graph.Edge>());
+        Map<Graph.Vertex, Set<Graph.Edge>> expectedGraph = new TreeMap<>();
+        expectedGraph.put(VERTEX_ONE_EXPECTED, new TreeSet<Graph.Edge>());
+        expectedGraph.put(VERTEX_TWO_EXPECTED, new TreeSet<Graph.Edge>());
+        expectedGraph.put(VERTEX_THREE_EXPECTED, new TreeSet<Graph.Edge>());
+        expectedGraph.put(VERTEX_SIX_EXPECTED, new TreeSet<Graph.Edge>());
+        expectedGraph.put(VERTEX_SEVEN_EXPECTED, new TreeSet<Graph.Edge>());
 
         expectedGraph.get(VERTEX_ONE_EXPECTED).add(new Graph.Edge(VERTEX_ONE_EXPECTED, VERTEX_TWO_EXPECTED, 5));
         expectedGraph.get(VERTEX_TWO_EXPECTED).add(new Graph.Edge(VERTEX_TWO_EXPECTED, VERTEX_ONE_EXPECTED, 5));
@@ -85,10 +85,10 @@ public class GraphTest {
         graph.addVertex(VERTEX_FIVE);
         graph.addVertex(VERTEX_TWO);
 
-        Map<Graph.Vertex, Set<Graph.Edge>> expectedGraph = new HashMap<>();
-        expectedGraph.put(VERTEX_ONE_EXPECTED, new HashSet<Graph.Edge>());
-        expectedGraph.put(VERTEX_FIVE_EXPECTED, new HashSet<Graph.Edge>());
-        expectedGraph.put(VERTEX_TWO_EXPECTED, new HashSet<Graph.Edge>());
+        Map<Graph.Vertex, Set<Graph.Edge>> expectedGraph = new TreeMap<>();
+        expectedGraph.put(VERTEX_ONE_EXPECTED, new TreeSet<Graph.Edge>());
+        expectedGraph.put(VERTEX_FIVE_EXPECTED, new TreeSet<Graph.Edge>());
+        expectedGraph.put(VERTEX_TWO_EXPECTED, new TreeSet<Graph.Edge>());
 
         assertThat(graph.graph.entrySet(), everyItem(isIn(expectedGraph.entrySet())));
     }
