@@ -4,8 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class BinaryTreeTest {
     /*
@@ -27,7 +26,7 @@ public class BinaryTreeTest {
 
     @Before
     public void setUp() {
-        tree = new BinaryTree<Integer>();
+        tree = new BinaryTree<>();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -120,6 +119,23 @@ public class BinaryTreeTest {
         tree.add(0);
         assertThat(tree.inOrder(), contains(0, 10));
         assertThat(tree.inOrderWithIteration(), contains(0, 10));
+    }
+
+    @Test
+    public void shouldReturnTreeHeight() {
+        addValueToTree(INPUT_VALUES);
+        assertEquals(8, tree.getTreeHeight());
+    }
+
+    @Test
+    public void shouldReturnTreeHeightForOneElementTree() {
+        tree.add(4);
+        assertEquals(1, tree.getTreeHeight());
+    }
+
+    @Test
+    public void shouldReturnZeroTreeHeightForEmptyTree() {
+        assertEquals(0, tree.getTreeHeight());
     }
 
     @Test

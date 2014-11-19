@@ -3,6 +3,7 @@ package org.interview.datastructures.tree;
 
 import java.util.*;
 
+import static java.lang.Math.max;
 import static org.interview.utils.Math.ge;
 
 public class BinaryTree<T extends Comparable<T>> {
@@ -21,16 +22,16 @@ public class BinaryTree<T extends Comparable<T>> {
     public void add(T item) {
         if (item == null) throw new IllegalArgumentException("Can't add nulls to the tree.");
         if (root == null) {
-            root = new Node<T>(item);
+            root = new Node<>(item);
         } else {
             addToTree(item);
         }
     }
 
     public List<T> breadthFirst() {
-        List<T> nodeValues = new ArrayList<T>();
+        List<T> nodeValues = new ArrayList<>();
         if (root != null) {
-            Queue<Node<T>> queue = new LinkedList<Node<T>>();
+            Queue<Node<T>> queue = new LinkedList<>();
             queue.add(root);
             Node<T> it;
             while (!queue.isEmpty()) {
@@ -44,10 +45,10 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public List<T> inOrderWithIteration() {
-        List<T> nodeValues = new ArrayList<T>();
+        List<T> nodeValues = new ArrayList<>();
         if (root != null) {
             Node<T> it = root;
-            Stack<Node<T>> stack = new Stack<Node<T>>();
+            Stack<Node<T>> stack = new Stack<>();
             while (!stack.isEmpty() || it != null) {
                 if (it != null) {
                     stack.push(it);
@@ -63,12 +64,12 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public List<T> postOrderWithIteration() {
-        List<T> nodeValues = new ArrayList<T>();
+        List<T> nodeValues = new ArrayList<>();
         if (root != null) {
             Node<T> it = root;
             Node<T> lastVisited = null;
-            Node<T> peek = null;
-            Stack<Node<T>> stack = new Stack<Node<T>>();
+            Node<T> peek;
+            Stack<Node<T>> stack = new Stack<>();
             while (!stack.isEmpty() || it != null) {
                 if (it != null) {
                     stack.push(it);
@@ -87,10 +88,10 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public List<T> preOrderWithIteration() {
-        List<T> nodeValues = new ArrayList<T>();
+        List<T> nodeValues = new ArrayList<>();
         if (root != null) {
             Node<T> it = root;
-            Stack<Node<T>> stack = new Stack<Node<T>>();
+            Stack<Node<T>> stack = new Stack<>();
             while (!stack.isEmpty() || it != null) {
                 if (it != null) {
                     nodeValues.add(it.value);
@@ -105,19 +106,19 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public List<T> inOrder() {
-        List<T> nodeValues = new ArrayList<T>();
+        List<T> nodeValues = new ArrayList<>();
         inOrder(root, nodeValues);
         return nodeValues;
     }
 
     public List<T> preOrder() {
-        List<T> nodeValues = new ArrayList<T>();
+        List<T> nodeValues = new ArrayList<>();
         preOrder(root, nodeValues);
         return nodeValues;
     }
 
     public List<T> postOrder() {
-        List<T> nodeValues = new ArrayList<T>();
+        List<T> nodeValues = new ArrayList<>();
         postOrder(root, nodeValues);
         return nodeValues;
     }
@@ -138,6 +139,17 @@ public class BinaryTree<T extends Comparable<T>> {
         }
     }
 
+    public int getTreeHeight() {
+        return getTreeHeight(root);
+    }
+
+    public int getTreeHeight(Node<T> node) {
+        if (node == null) return 0;
+        else {
+            return 1 + max(getTreeHeight(node.left), getTreeHeight(node.right));
+        }
+    }
+
     private void postOrder(Node<T> node, List<T> values) {
         if (node != null) {
             postOrder(node.left, values);
@@ -153,14 +165,14 @@ public class BinaryTree<T extends Comparable<T>> {
                 if (it.right != null) {
                     it = it.right;
                 } else {
-                    it.right = new Node<T>(item);
+                    it.right = new Node<>(item);
                     it = null;
                 }
             } else {
                 if (it.left != null) {
                     it = it.left;
                 } else {
-                    it.left = new Node<T>(item);
+                    it.left = new Node<>(item);
                     it = null;
                 }
             }
