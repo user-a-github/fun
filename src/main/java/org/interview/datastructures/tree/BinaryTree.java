@@ -150,6 +150,28 @@ public class BinaryTree<T extends Comparable<T>> {
         }
     }
 
+    public List<List<T>> allPaths() {
+        List<List<T>> paths = new ArrayList<>();
+        List<T> path = new ArrayList<>();
+        allPaths(root, paths, path);
+        return paths;
+    }
+
+    private void allPaths(Node<T> node, List<List<T>> paths, List<T> path) {
+        if (node == null) return;
+
+        path.add(node.value);
+
+        if (node.left == null && node.right == null) {
+            paths.add(new ArrayList(path));
+        } else {
+            allPaths(node.left, paths, path);
+            allPaths(node.right, paths, path);
+        }
+
+        path.remove(path.size() - 1);
+    }
+
     private void postOrder(Node<T> node, List<T> values) {
         if (node != null) {
             postOrder(node.left, values);

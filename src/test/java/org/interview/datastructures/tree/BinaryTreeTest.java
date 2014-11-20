@@ -3,6 +3,7 @@ package org.interview.datastructures.tree;
 import org.junit.Before;
 import org.junit.Test;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.junit.Assert.*;
 
@@ -23,6 +24,12 @@ public class BinaryTreeTest {
     private static final Integer[] IN_ORDER_EXPECTED = new Integer[]{-8, -5, 0, 0, 0, 3, 10, 50, 55, 60, 100, 102, 105, 150, 306};
     private static final Integer[] PRE_ORDER_EXPECTED = new Integer[]{100, -8, 0, -5, 0, 0, 50, 10, 3, 55, 60, 105, 102, 306, 150};
     private static final Integer[] POST_ORDER_EXPECTED = new Integer[]{-5, 3, 10, 60, 55, 50, 0, 0, 0, -8, 102, 150, 306, 105, 100};
+
+    private static final Integer[] PATH_ONE = new Integer[]{100, -8, 0, -5};
+    private static final Integer[] PATH_TWO = new Integer[]{100, -8, 0, 0, 0, 50, 10, 3};
+    private static final Integer[] PATH_THREE = new Integer[]{100, -8, 0, 0, 0, 50, 55, 60};
+    private static final Integer[] PATH_FOUR = new Integer[]{100, 105, 102};
+    private static final Integer[] PATH_FIVE = new Integer[]{100, 105, 306, 150};
 
     @Before
     public void setUp() {
@@ -143,6 +150,35 @@ public class BinaryTreeTest {
         addValueToTree(INPUT_VALUES);
         assertThat(tree.inOrder(), contains(IN_ORDER_EXPECTED));
         assertThat(tree.inOrderWithIteration(), contains(IN_ORDER_EXPECTED));
+    }
+
+    @Test
+    public void shouldGetAllPathsForEmptyTree() {
+        assertTrue(tree.allPaths().isEmpty());
+    }
+
+    @Test
+    public void shouldGetAllPathsForOneElementTree() {
+        tree.add(1);
+
+        assertThat(tree.allPaths(), contains(asList(1)));
+    }
+
+    @Test
+    public void shouldGetAllPathsForTwoElementTree() {
+        tree.add(1);
+        tree.add(3);
+
+        assertThat(tree.allPaths(), contains(asList(1, 3)));
+    }
+
+    @Test
+    public void shouldGetAllPathsForTree() {
+        addValueToTree(INPUT_VALUES);
+
+        assertThat(tree.allPaths(), contains(
+                asList(PATH_ONE), asList(PATH_TWO), asList(PATH_THREE), asList(PATH_FOUR), asList(PATH_FIVE)
+        ));
     }
 
     private void assertTree(BinaryTree<Integer> tree, Integer[] inOrder, Integer[] preOrder, Integer[] postOrder) {
