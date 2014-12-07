@@ -42,6 +42,7 @@ public final class GraphTraversals {
 
     private static void assertInitParameters(Graph graph, Vertex startVertex) {
         if (startVertex == null) throw new IllegalArgumentException("Can't start traverse from null vertex");
+        if (graph == null) throw new IllegalArgumentException("Graph is null");
         if (graph.graph.isEmpty()) throw new IllegalArgumentException("Graph is empty");
         if (!graph.graph.containsKey(startVertex)) throw new IllegalArgumentException("No such vertex in the graph");
     }

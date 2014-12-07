@@ -109,14 +109,14 @@ public class GraphTraversalsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldBFSNotTraverseGraphWithNullStartVertex() {
+    public void shouldNotBFSTraverseGraphWithNullStartVertex() {
         graph.addEdge(VERTEX_ONE, VERTEX_TWO, 1);
 
         bfs(graph, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldDFSNotTraverseGraphWithNullStartVertex() {
+    public void shouldNotDFSTraverseGraphWithNullStartVertex() {
         graph.addEdge(VERTEX_ONE, VERTEX_TWO, 1);
 
         dfs(graph, null);
@@ -138,6 +138,16 @@ public class GraphTraversalsTest {
         graph.addEdge(VERTEX_ONE, VERTEX_SIX, 1);
 
         dfs(graph, VERTEX_SEVEN);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotBFSTraverseNullGraph() {
+        bfs(null, VERTEX_SEVEN);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotDFSTraverseNullGraph() {
+        dfs(null, VERTEX_SEVEN);
     }
 
     private void markExpectedVerticesColorAsBlack() {

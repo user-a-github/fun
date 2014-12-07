@@ -105,6 +105,10 @@ public class Graph {
         return graph.getOrDefault(v, new HashSet<Edge>());
     }
 
+    public List<Vertex> getVertices() {
+        return new ArrayList(graph.keySet());
+    }
+
     private void assertNullVertex(Vertex v) {
         if (v == null) throw new IllegalArgumentException("Can't add null vertex.");
     }
