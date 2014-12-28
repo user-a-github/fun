@@ -1,28 +1,45 @@
 package org.interview.algorithms.dynamicprogramming;
 
-public class Knapsack {
-    public static int[] knapsack01(int weights[], int[] value, int capacity) {
-        int[] solution = new int[weights.length];
-        int f[][] = new int[weights.length + 1][capacity + 1];
+import static java.lang.Integer.MIN_VALUE;
+import static java.lang.Math.max;
 
-        for (int i = 0; i <= weights.length; i++) {
-            f[i][0] = 0;
-        }
+public class Knapsack {
+    public static boolean[] knapsack01(int weights[], int[] values, int capacity) {
+
+        validateInput(weights, values, capacity);
+
+        int f[][] = new int[weights.length + 1][capacity + 1];
+        boolean[][] sol = new boolean[weights.length + 1][capacity + 1];
 
         for (int i = 1; i <= weights.length; i++) {
             for (int j = 1; j <= capacity; j++) {
-                if (weights[i - 1] <= j) {
-                    if (f[i - 1][j - weights[i - 1]] + value[i - 1] > f[i - 1][j]) {
-                        f[i][j] = f[i - 1][j - weights[i - 1]] + value[i - 1];
-                        solution[i - 1] = 1;
-                    } else {
-                        f[i][j] = f[i - 1][j];
-                    }
-                } else {
-                    f[i][j] = f[i - 1][j];
-                }
+                int v = (weights[i - 1] <= j) ? f[i - 1][j - weights[i - 1]] + values[i - 1] : MIN_VALUE;
+                f[i][j] = max(f[i - 1][j], v);
+                sol[i][j] = v > f[i - 1][j];
+            }
+        }
+
+        return buildSolution(weights, capacity, sol);
+    }
+
+    private static boolean[] buildSolution(int[] weights, int capacity, boolean[][] sol) {
+        boolean[] solution = new boolean[weights.length];
+        for (int n = weights.length, w = capacity; n > 0; n--) {
+            if (sol[n][w]) {
+                solution[n - 1] = true;
+                w = w - weights[n - 1];
+            } else {
+                solution[n - 1] = false;
             }
         }
         return solution;
+    }
+
+    private static void validateInput(int[] weights, int[] values, int capacity) {
+        if (capacity < 0) throw new IllegalArgumentException("Knapsack capacity is negative.");
+        if (weights == null) throw new IllegalArgumentException("Weights array can't be null.");
+        if (values == null) throw new IllegalArgumentException("Values array can't be null.");
+        if (weights.length != values.length)
+            throw new IllegalArgumentException("Weights and values arrays should have the same length.");
     }
 }
